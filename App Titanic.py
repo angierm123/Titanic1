@@ -2,7 +2,6 @@ import streamlit as st
 import pickle
 import numpy as np
 
-
 # Load the model and scaler
 with open('titanic_model.pkl', 'rb') as f:
     model, scaler = pickle.load(f)
