@@ -2,31 +2,31 @@ import streamlit as st
 import pickle
 import numpy as np
 
-# Load the model and scaler
+# Cargar el modelo y el scaler
 with open('titanic_model.pkl', 'rb') as f:
     model, scaler = pickle.load(f)
 
-st.title("Titanic Survival Prediction")
-st.write("Enter passenger details to predict if they would survive.")
+st.title("Predicción de Supervivencia en el Titanic")
+st.write("Ingrese los detalles del pasajero para predecir si sobreviviría.")
 
-# User input 
-pclass = st.selectbox("Passenger class (Pclass)", [1, 2, 3])
-sex = st.radio("Sex", ["Man", "Woman"])
-age = st.slider("Age", 0, 100, 30)
-fare = st.number_input("Rate paid (Fare)", min_value=0.0, value=32.0, step=1.0)
-embarked = st.selectbox("Port of embarkation (Embarked)", ["C", "Q", "S"])
+# Entrada de usuario
+pclass = st.selectbox("Clase del pasajero (Pclass)", [1, 2, 3])
+sex = st.radio("Sexo", ["Hombre", "Mujer"])
+age = st.slider("Edad", 0, 100, 30)
+fare = st.number_input("Tarifa pagada (Fare)", min_value=0.0, value=32.0, step=1.0)
+embarked = st.selectbox("Puerto de embarque (Embarked)", ["C", "Q", "S"])
 
-# Convert input to numeric format
-sex = 1 if sex == "Man" else 0
+# Convertir entrada a formato numérico
+sex = 1 if sex == "Hombre" else 0
 embarked_mapping = {"C": 0, "Q": 1, "S": 2}
 embarked = embarked_mapping[embarked]
 
-# Prepare data for prediction
+# Preparar datos para predicción
 input_data = np.array([[pclass, sex, age, fare, embarked]])
 input_data = scaler.transform(input_data)
 
-# Prediction
-if st.button("Predict"): 
+# Predicción
+if st.button("Predecir"): 
     prediction = model.predict(input_data)
-    result = "He survived" if prediction[0] == 1 else "Did not survive"
-    st.write(f"### result: {result}")
+    result = "Sobrevivió" if prediction[0] == 1 else "No sobrevivió"
+    st.write(f"### Resultado: {result}")
