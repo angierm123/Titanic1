@@ -3,7 +3,7 @@ import pickle
 import numpy as np
 
 # Cargar el modelo y el scaler
-with open('titanic_model.pkl', 'rb') as f:
+with open('titanic_model(1).pkl', 'rb') as f:
     model, scaler = pickle.load(f)
 
 st.title("Predicción de Supervivencia en el Titanic")
